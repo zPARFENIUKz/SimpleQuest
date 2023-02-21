@@ -20,10 +20,9 @@
 необходимо представиться чтобы команда знала как к тебе обращаться
 <br/>
 <br/>
-<form action="startStory" method="post">
-    Как к вам обращаться: <label>
-    <input type="text">
-</label>
+<form action="authentication" method="post">
+    Как к вам обращаться:
+    <input type="text" name="name">
     <br/>
     <input type="submit" value="Продолжить">
 </form>
