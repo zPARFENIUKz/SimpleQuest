@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebFilter(filterName = "StartStoryFiler", value = "/startStory")
+@WebFilter(filterName = "StartStoryFiler", urlPatterns = {"/story"})
 public class StartStoryFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -28,11 +28,13 @@ public class StartStoryFilter implements Filter {
         if (session == null) {
             redirectToStartPage(req, resp);
         }
-        Map<String, String> cookies = Arrays.stream(req.getCookies())
-                .collect(Collectors.toMap(Cookie::getName, Cookie::getValue));
-        if (!cookies.containsKey("name") || !cookies.containsKey("countOfGames")) {
+        final String name = (String) session.getAttribute("name");
+        final Integer countOfGames = (Integer) session.getAttribute("countOfGames");
+        final Integer numOfQuest = (Integer) session.getAttribute("numOfQuest");
+        if (name == null || countOfGames == null || numOfQuest == null) {
             redirectToStartPage(req, resp);
         }
+
         chain.doFilter(request, response);
     }
 

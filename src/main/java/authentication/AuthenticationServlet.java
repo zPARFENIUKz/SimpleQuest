@@ -12,11 +12,10 @@ public class AuthenticationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String name = request.getParameter("name");
-        final Cookie nameCookie = new Cookie("name", name);
-        final Cookie gamesCookie = new Cookie("countOfGames", "0");
-        final HttpSession session = request.getSession();
-        response.addCookie(nameCookie);
-        response.addCookie(gamesCookie);
-        response.sendRedirect(request.getContextPath() + "/startStory");
+        final HttpSession session = request.getSession(true);
+        session.setAttribute("name", name);
+        session.setAttribute("countOfGames", 0);
+        session.setAttribute("numOfQuest", 1);
+        response.sendRedirect(request.getContextPath() + "/story");
     }
 }
